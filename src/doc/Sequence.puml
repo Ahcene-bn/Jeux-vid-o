@@ -1,0 +1,28 @@
+@startuml
+actor Admin
+participant "guerrierNiveau50Prototype:Guerrier"
+participant "archierNiveau50Prototype:Archer"
+
+actor jouer1
+participant "guerrierNiveau50Copy:Guerrier"
+
+actor jouer2
+
+Admin -> "guerrierNiveau50Prototype:Guerrier":Guerrier(equipements=[equipementGuerrier1,equipementGuerrier2],competences = [comptenceGuerrier],statistique= 5 , niveau = 50 )
+activate Admin
+activate "guerrierNiveau50Prototype:Guerrier"
+
+
+Admin -> "archierNiveau50Prototype:Archer":Archer(equipements=[equipementArcher1,equipementArcher2],competences = [comptenceArcher],statistique= 5 , niveau = 50 )
+activate "archierNiveau50Prototype:Archer"
+
+
+"archierNiveau50Prototype:Archer" -> "archierNiveau50Copy:Archer":clone()
+activate jouer2
+activate "archierNiveau50Copy:Archer"
+
+"guerrierNiveau50Prototype:Guerrier" -> "guerrierNiveau50Copy:Guerrier":clone()
+activate "guerrierNiveau50Copy:Guerrier"
+activate jouer1
+
+@enduml

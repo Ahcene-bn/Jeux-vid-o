@@ -1,6 +1,6 @@
 package org.jeux
 
-class GuerrierModel(
+class Guerrier(
     equipemet: Array<Equipemet>,
     competences: Array<Competences>,
     statistiques: Int,
@@ -9,9 +9,9 @@ class GuerrierModel(
 
 
 
-    override fun clone(): GuerrierModel {
+    override fun clone(): Guerrier{
 
-        return GuerrierModel(this.equipement,this.competences,this.statistiques,this.niveau)
+        return Guerrier(this.equipement,this.competences,this.statistiques,this.niveau)
     }
 
 }
