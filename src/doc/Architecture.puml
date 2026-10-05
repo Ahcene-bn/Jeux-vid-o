@@ -1,0 +1,96 @@
+@startuml
+
+
+
+enum Competences{
+    TUER_UN_COUP
+    INVISIBILITE
+    IMMORTALITE
+    STUPIDITE
+}
+
+enum Equipement{
+    PISTOLET
+    PIERRE
+    STYLO
+    BALLON
+}
+
+interface Personnage{
+
+
+{abstract} clone():Personnage
+}
+
+abstract class PersonnageModelPrototype{
+    #competences:Competences[]
+    #equipements:Equipement[]
+    #statistiques:Int
+    #niveau:Int
+
+   }
+
+class Guerrier{
+         #competences:Competences[]
+         #"equipements:Equipement[]
+        #statistiques:Int
+        #niveau:Int
+
+        +Guerrier(competences:Competences[],equipements:Equipement[],statistiques:Int,niveau:Int)
+        +clone():Guerrier
+
+
+}
+
+
+class Mage{
+ #competences:Competences[]
+        #equipements:Equipement[]
+        #statistiques:Int
+        #niveau:Int
+
+        +Mage(competences:Competences[],equipements:Equipement[],statistiques:Int,niveau:Int)
+        +clone():Mage
+}
+class Archer{
+
+ #competences:Competences[]
+        #equipements:Equipement[]
+        #statistiques:Int
+        #niveau:Int
+
+        +Archer(competences:Competences[],equipements:Equipement[],statistiques:Int,niveau:Int)
+        +clone():Paladin
+}
+
+
+class Paladin{
+        #competences:Competences[]
+        #equipements:Equipement[]
+        #statistiques:Int
+        #niveau:Int
+
+        +Paladin(competences:Competences[],equipements:Equipement[],statistiques:Int,niveau:Int)
+        +clone():Paladin
+}
+
+
+class Assasin{
+#competences:Competences[]
+        #equipements:Equipement[]
+        #statistiques:Int
+        #niveau:Int
+
+        +Assasin(competences:Competences[],equipements:Equipement[],statistiques:Int,niveau:Int)
+        +clone():Assasin
+}
+
+
+Personnage <|-- PersonnageModelPrototype
+PersonnageModelPrototype <|-- Guerrier
+PersonnageModelPrototype <|-- Mage
+PersonnageModelPrototype <|-- Archer
+PersonnageModelPrototype <|-- Paladin
+PersonnageModelPrototype <|-- Assasin
+
+@enduml

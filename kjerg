@@ -1,0 +1,177 @@
+// =============================
+// Prototype de base
+// =============================
+
+abstract class Shape(
+    var x: Int = 0,
+    var y: Int = 0,
+    var color: String = ""
+) {
+
+    // Constructeur de copie de Shape
+    constructor(source: Shape) : this(
+        source.x,
+        source.y,
+        source.color
+    )
+
+    // Chaque sous-classe doit savoir se cloner
+    abstract fun clone(): Shape
+}
+
+
+// =============================
+// Prototype concret : Rectangle
+// =============================
+
+class Rectangle(
+    x: Int = 0,
+    y: Int = 0,
+    color: String = "",
+    var width: Int = 0,
+    var height: Int = 0
+) : Shape(x, y, color) {
+
+    // Constructeur de copie
+    //
+    // IMPORTANT :
+    // On utilise this(...) et PAS super(...).
+    //
+    // Pourquoi ?
+    // Parce que Rectangle possède déjà un constructeur primaire.
+    // Le constructeur secondaire doit donc appeler le constructeur
+    // primaire avec this(...).
+    constructor(source: Rectangle) : this(
+        source.x,
+        source.y,
+        source.color,
+        source.width,
+        source.height
+    )
+
+    override fun clone(): Rectangle {
+        return Rectangle(this)
+    }
+}
+
+
+// =============================
+// Prototype concret : Circle
+// =============================
+
+class Circle(
+    x: Int = 0,
+    y: Int = 0,
+    color: String = "",
+    var radius: Int = 0
+) : Shape(x, y, color) {
+
+    // Constructeur de copie
+    constructor(source: Circle) : this(
+        source.x,
+        source.y,
+        source.color,
+        source.radius
+    )
+
+    override fun clone(): Circle {
+        return Circle(this)
+    }
+}
+
+
+// =============================
+// Application
+// =============================
+
+class Application {
+
+    private val shapes = mutableListOf<Shape>()
+
+    init {
+
+        // Création d'un Circle
+        val circle = Circle()
+
+        circle.x = 10
+        circle.y = 10
+        circle.radius = 20
+
+        shapes.add(circle)
+
+
+        // Clone du Circle
+        //
+        // circle.clone()
+        //       ↓
+        // Circle(this)
+        //       ↓
+        // constructor(source: Circle)
+        val anotherCircle = circle.clone()
+
+        shapes.add(anotherCircle)
+
+
+        // Création d'un Rectangle
+        val rectangle = Rectangle()
+
+        rectangle.width = 10
+        rectangle.height = 20
+
+        shapes.add(rectangle)
+    }
+
+
+    fun businessLogic() {
+
+        // On ne connaît pas les types réels des objets.
+        // On sait seulement qu'ils sont des Shape.
+        val shapesCopy = mutableListOf<Shape>()
+
+        for (shape in shapes) {
+
+            // Le bon clone() est appelé grâce au polymorphisme.
+            shapesCopy.add(shape.clone())
+        }
+
+
+        // Affichage
+        println("Nombre d'objets originaux : ${shapes.size}")
+        println("Nombre de copies : ${shapesCopy.size}")
+
+        for (shape in shapesCopy) {
+
+            when (shape) {
+
+                is Circle -> {
+                    println(
+                        "Circle : x=${shape.x}, " +
+                        "y=${shape.y}, " +
+                        "radius=${shape.radius}"
+                    )
+                }
+
+                is Rectangle -> {
+                    println(
+                        "Rectangle : x=${shape.x}, " +
+                        "y=${shape.y}, " +
+                        "width=${shape.width}, " +
+                        "height=${shape.height}"
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+// =============================
+// Main
+// =============================
+
+fun main() {
+
+    val application = Application()
+
+    application.businessLogic()
+}
