@@ -8,13 +8,11 @@ participant "guerrierNiveau50Copy:Guerrier"
 
 actor jouer2
 
-Admin -> "guerrierNiveau50Prototype:Guerrier":Guerrier(equipements=[equipementGuerrier1,equipementGuerrier2],competences = [comptenceGuerrier],statistique= 5 , niveau = 50 )
+Admin -> "guerrierNiveau50Prototype:Guerrier" ++ :Guerrier(equipements=[equipementGuerrier1,equipementGuerrier2],competences = [comptenceGuerrier],statistique= 5 , niveau = 50 )
 activate Admin
-activate "guerrierNiveau50Prototype:Guerrier"
 
+Admin -> "archierNiveau50Prototype:Archer" ++:Archer(equipements=[equipementArcher1,equipementArcher2],competences = [comptenceArcher],statistique= 5 , niveau = 50 )
 
-Admin -> "archierNiveau50Prototype:Archer":Archer(equipements=[equipementArcher1,equipementArcher2],competences = [comptenceArcher],statistique= 5 , niveau = 50 )
-activate "archierNiveau50Prototype:Archer"
 
 
 "archierNiveau50Prototype:Archer" -> "archierNiveau50Copy:Archer":clone()
